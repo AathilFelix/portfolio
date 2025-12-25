@@ -1,0 +1,191 @@
+---
+title: "The Complete Guide to Building a Blog with Next.js"
+description: "Learn how to build a modern blog with Next.js, MDX, and Tailwind CSS - covering everything from setup to deployment."
+date: "25-12-2025"
+author:
+  - "Aathil Felix"
+  - "Jane Doe"
+---
+
+## Introduction
+Welcome to this comprehensive guide! In this post, we'll explore **everything** you need to know about building a modern blog. Let's dive in.
+
+---
+
+## Getting Started
+First, make sure you have [Node.js](https://nodejs.org) installed on your machine. You'll also need a basic understanding of *React* and ***TypeScript***.
+
+> The best way to learn is by doing. — Someone wise
+
+### Prerequisites
+
+Before we begin, ensure you have:
+
+- Node.js 18 or higher
+- A code editor (VS Code recommended)
+- Basic knowledge of React
+- Familiarity with the command line
+
+### Installation Steps
+
+1. Create a new Next.js project
+2. Install the required dependencies
+3. Configure Tailwind CSS
+4. Set up your MDX pipeline
+5. Create your first blog post
+
+---
+
+## Code Examples
+
+Here's how you define a simple TypeScript function:
+
+```typescript
+interface Post {
+  title: string;
+  date: string;
+  author: string | string[];
+}
+
+function getPostBySlug(slug: string): Post {
+  // Fetch and return the post
+  return {
+    title: "My Post",
+    date: "25-12-2025",
+    author: "Aathil Felix"
+  };
+}
+```
+
+For inline code, you can use `const x = 10` or reference files like `posts.ts`.
+
+### JavaScript Example
+
+```javascript
+const greet = (name) => {
+  console.log(`Hello, ${name}!`);
+};
+
+greet("World");
+```
+
+### CSS Example
+
+```css
+.prose {
+  --tw-prose-body: hsl(var(--foreground));
+  max-width: 65ch;
+}
+```
+
+### Shell Commands
+
+```bash
+npm install next-mdx-remote gray-matter
+npm run dev
+```
+
+---
+
+## Working with Images
+
+Here's how images look in your blog:
+
+![A beautiful landscape](https://placehold.co/600x400)
+
+You can also use Next.js Image component for optimization (requires custom MDX components).
+
+---
+
+## Tables
+
+| Feature       | Status    | Notes                    |
+|---------------|-----------|--------------------------|
+| MDX Support   | Done      | Full MDX with components |
+| Dark Mode     | Done      | Auto-detects preference  |
+| Syntax Highlighting | Pending | Use rehype-highlight |
+| Comments      | Planned   | Integrate Giscus        |
+
+---
+
+## Blockquotes
+
+Simple quote:
+
+> This is a simple blockquote. It can span multiple lines and is great for highlighting important information.
+
+Nested quote:
+
+> This is the outer quote.
+>
+> > This is a nested quote inside the outer one.
+> 
+> Back to the outer quote.
+
+---
+
+## Lists
+
+### Unordered List
+
+- First item
+- Second item
+  - Nested item 2.1
+  - Nested item 2.2
+    - Deeply nested item
+- Third item
+
+### Ordered List
+
+1. First step
+2. Second step
+   1. Sub-step 2.1
+   2. Sub-step 2.2
+3. Third step
+
+---
+
+## Text Formatting
+
+Here are all the text formatting options:
+
+- **Bold text** for emphasis
+- *Italic text* for subtle emphasis
+- ***Bold and italic*** for strong emphasis
+- ~~Strikethrough~~ for deleted content
+- `inline code` for code references
+- [Links](https://example.com) for navigation
+
+---
+
+## Horizontal Rules
+
+Use three dashes to create a horizontal rule:
+
+---
+
+## Details/Summary
+
+<details>
+<summary>Click to expand</summary>
+
+This is hidden content that appears when you click the summary.
+
+- Item 1
+- Item 2
+- Item 3
+
+</details>
+
+---
+
+## Conclusion
+
+That is everything you need to know! Here is a quick recap:
+
+1. **MDX** lets you write JSX in Markdown
+2. **Tailwind Typography** handles styling
+3. **Next.js App Router** provides the framework
+4. **gray-matter** parses frontmatter
+
+Thanks for reading!

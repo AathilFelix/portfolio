@@ -1,74 +1,76 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 
-const postsDirectory = path.join(process.cwd(), 'posts');
+const postsDirectory = path.join(process.cwd(), "posts");
 
-export type PostItem = {
-    id: string;
-    title: string;
-    date: string;
-    category: string;
-}
+export type Post = {
+  slug: string;
+  content: string;
+  title: string;
+  date: string;
+  description?: string;
+  author: string | string[];
+  lastModified: string;
+};
 
-export type Post = PostItem & {
-    contentHtml: string;
-}
 
-export async function getSortedPostsData() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    const id = fileName.replace(/\.md$/, "");
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+export function getAllPosts() {
+  const files = fs.readdirSync(postsDirectory);
 
-    const matterResult = matter(fileContents);
+  return files.map((file) => {
+    const slug = file.replace(/\.mdx?$/, "");
+    const filePath = path.join(postsDirectory, file);
+    const source = fs.readFileSync(filePath, "utf-8");
+    const stats = fs.statSync(filePath);
+
+    const { data, content } = matter(source);
 
     return {
-      id,
-      title: matterResult.data.title,
-      date: matterResult.data.date,
-      category: matterResult.data.category,
+      slug,
+      content,
+      title: data.title,
+      date: data.date,
+      author: data.author || "Aathil Felix",
+      description: data.description,
+      lastModified: stats.mtime.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
     };
   });
-  return allPostsData.sort(({ date: a }, { date: b }) => {
-    if (a < b) {
-      return 1;
-    } else if (a > b) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
 }
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => ({
-    slug: fileName.replace(/\.md$/, ""),
-  }));
-}
+export function getPostBySlug(slug: string) {
+  let filePath = path.join(postsDirectory, `${slug}.mdx`);
 
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(postsDirectory, `${slug}.md`);
+  }
 
-export async function getPostData(slug: string): Promise<Post> {
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Post not found: ${slug}`);
+  }
 
-  const matterResult = matter(fileContents);
+  const source = fs.readFileSync(filePath, "utf-8");
+  const stats = fs.statSync(filePath); // Get file stats
 
-  // Convert markdown to HTML
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  const { data, content } = matter(source);
 
   return {
-    id: slug,
-    title: matterResult.data.title,
-    date: matterResult.data.date,
-    category: matterResult.data.category,
-    contentHtml,
+    slug,
+    content,
+    title: data.title,
+    date: data.date,
+    author: data.author || "Aathil Felix",
+    description: data.description,
+    lastModified: stats.mtime.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
   };
 }
