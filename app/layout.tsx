@@ -26,14 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-        <body
-          className={`min-h-screen ${geistSans.variable} ${geistMono.variable} antialiased max-w-2xl mx-auto pt-12 sm:pt-16 pb-6 sm:pb-8 px-6 selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black`}>
-          <ThemeProvider attribute="class" enableSystem defaultTheme="system">
-            <main className="flex flex-col min-h-100dvh space-y-8 ">
-              {children}
-            </main>
-          </ThemeProvider>
-        </body>
+      <body
+        className={`min-h-screen ${geistSans.variable} ${geistMono.variable} antialiased max-w-2xl mx-auto pt-12 sm:pt-16 pb-6 sm:pb-8 px-6 selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black`}>
+        <ThemeProvider attribute="class" enableSystem defaultTheme="system">
+          <main className="flex flex-col min-h-100dvh space-y-8 ">
+            {children}
+          </main>
+        </ThemeProvider>
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
