@@ -77,7 +77,7 @@ export default async function BlogPost({
 
       {/* Footer */}
       <footer className="mx-auto py-4">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-row max-md:flex-col justify-between items-center">
           <p className="text-sm text-muted-foreground">
             Written by {authors.join(", ")}
           </p>
